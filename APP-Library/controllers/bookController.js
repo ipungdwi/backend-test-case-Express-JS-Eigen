@@ -2,6 +2,14 @@ const db = require('../config/db');
 const Book = require('../models/Book');
 const Member = require('../models/Member');
 
+// Get all books from the database
+exports.getAllBooks = (req, res) => {
+  Book.getAllBooks((err, results) => {
+    if (err) return res.status(500).json({ error: err.message });
+    res.json(results);
+  });
+};
+
 exports.borrowBook = (req, res) => {
   const { memberCode, bookCode } = req.body;
 
@@ -84,28 +92,3 @@ exports.returnBook = (req, res) => {
     });
   });
 };
-
-exports.getAllBooks = (req, res) => {
-  Book.getAllBooks((err, results) => {
-    if (err) return res.status(500).json({ error: err.message });
-    res.json(results);
-  });
-};
-
-
-    // Mengubah milidetik ke menit
-    // const diffMinutes = Math.ceil(diffTime / (1000 * 60)); // 1000 ms * 60 detik = 1 menit
-
-// if (diffMinutes > 1) {
-        //   // Berlaku penalti jika lebih dari 1 menit
-        //   Member.penalizeMember(memberCode, (err) => {
-        //     if (err) console.error('Error updating penalty:', err);
-            
-        //     // Set timer 2 menit untuk membersihkan penalti
-        //     setTimeout(() => {
-        //       Member.clearPenalty(memberCode, (err) => {
-        //         if (err) console.error('Error removing penalty:', err);
-        //       });
-        //     }, 2 * 60 * 1000); // 2 menit dalam milidetik
-        //   });
-        // }

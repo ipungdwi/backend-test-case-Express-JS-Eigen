@@ -1,15 +1,24 @@
+const readline = require('readline');
+
+// Setup interface untuk membaca input dari terminal
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
+// Fungsi untuk membalikkan urutan huruf dengan angka tetap di akhir
 function reverseAlphabet(str) {
-    // Pisahkan antara huruf dan angka
     let letters = str.slice(0, -1); // Mengambil bagian huruf
     let number = str.slice(-1); // Mengambil bagian angka
 
-    // Balikkan urutan huruf
-    let reversedLetters = letters.split('').reverse().join('');
+    let reversedLetters = letters.split('').reverse().join(''); // Membalikkan huruf
 
-    // Gabungkan kembali huruf yang sudah dibalik dengan angka
-    return reversedLetters + number;
+    return reversedLetters + number; // Menggabungkan hasil
 }
 
-let input = "NEGIE1";
-let result = reverseAlphabet(input);
-console.log(result); // Output: EIGEN1
+// Input
+rl.question('Masukkan string dengan format huruf dan angka di akhir: ', (input) => {
+    let result = reverseAlphabet(input);
+    console.log('Hasilnya:', result); // Menampilkan hasil ke terminal
+    rl.close(); // Menutup interface
+});
